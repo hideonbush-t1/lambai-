@@ -1,0 +1,54 @@
+// prisma/schema.prisma
+
+datasource db {
+  provider = "postgresql" 
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            Int           @id @default(autoincrement()) // id là số nguyên (Int)
+  name          String
+  email         String        @unique
+  role          String        @default("MEMBER")
+  groupId       Int?
+  group         Group?        @relation(fields: [groupId], references: [id])
+  createdAt     DateTime      @default(now())
+  
+  // Thêm dòng này để tạo kết nối ngược (Opposite relation)
+  attempts      ExamAttempt[] 
+}
+model Group {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  users User[]
+}
+
+enum Role {
+  SUPER_ADMIN
+  CONTENT_ADMIN
+  MEMBER
+  GUEST
+}
+
+model Question {
+  id            String   @id @default(cuid())
+  content       String   // Nội dung câu hỏi
+  type          String   // MULTIPLE_CHOICE hoặc SCRIPTING (Monaco)
+  options       Json?    // Các lựa chọn trắc nghiệm
+  correctAnswer String?
+  codeTemplate  String?  // Mẫu code ban đầu cho Monaco
+}
+
+model ExamAttempt {
+  id        Int      @id @default(autoincrement())
+  
+  // Sửa String thành Int để khớp với id của User bên trên
+  userId    Int      
+  user      User     @relation(fields: [userId], references: [id])
+  
+  score     Float
+  createdAt DateTime @default(now())
+}

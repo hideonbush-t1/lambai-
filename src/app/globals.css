@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@theme {
+  /* Tông màu Indigo Blue chủ đạo */
+  --color-primary: #4f46e5;
+  --color-primary-foreground: #ffffff;
+
+  /* Tông màu Emerald Green cảm hứng */
+  --color-secondary: #10b981;
+  --color-secondary-foreground: #ffffff;
+
+  /* Các màu trạng thái hệ thống */
+  --color-warning: #f59e0b; /* Cho Anti-cheat */
+  --color-danger: #ef4444;  /* Cho Nộp bài/Lỗi */
+  --color-surface: #f9fafb; /* Nền xám nhạt */
+
+  /* Giữ lại font mặc định của Next.js */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #111827;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
