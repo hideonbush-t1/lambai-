@@ -9,15 +9,14 @@ generator client {
 }
 
 model User {
-  id            Int           @id @default(autoincrement()) // id là số nguyên (Int)
+  id            Int           @id @default(autoincrement())
   name          String
   email         String        @unique
-  role          String        @default("MEMBER")
+  password      String        // Thêm trường này để lưu mật khẩu mã hóa
+  role          Role          @default(MEMBER) // Đổi từ String sang sử dụng Enum Role
   groupId       Int?
   group         Group?        @relation(fields: [groupId], references: [id])
   createdAt     DateTime      @default(now())
-  
-  // Thêm dòng này để tạo kết nối ngược (Opposite relation)
   attempts      ExamAttempt[] 
 }
 model Group {
@@ -44,11 +43,9 @@ model Question {
 
 model ExamAttempt {
   id        Int      @id @default(autoincrement())
-  
-  // Sửa String thành Int để khớp với id của User bên trên
   userId    Int      
-  user      User     @relation(fields: [userId], references: [id])
-  
+  // Thêm onDelete: Cascade vào đây:
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   score     Float
   createdAt DateTime @default(now())
 }
