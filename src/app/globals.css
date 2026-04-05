@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f8fafc; /* Nền xám nhạt sang trọng */
+  --foreground: #1e293b;
+}
+
+@theme inline {
+  /* Định nghĩa màu sắc theo yêu cầu của sếp */
+  --color-primary: #0070f3;     /* Xanh dương công nghệ */
+  --color-success: #10b981;     /* Xanh lá cho câu trả lời đúng */
+  --color-danger: #ef4444;      /* Đỏ cho lỗi/sai */
+  --color-warning: #f59e0b;     /* Vàng cho cảnh báo Anti-cheat */
+  
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
